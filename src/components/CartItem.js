@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { updateCartItem, removeFromCart } from "../redux/cartSlice";
-import { generateRandomPrice } from "../utils/helpers";
+import priceList from '../utils/helpers';
 
 const CartItem = ({ item, details }) => {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ const CartItem = ({ item, details }) => {
     }
   };
 
-  // Ensure details is not undefined before accessing its properties
-  const price = details ? generateRandomPrice() : 0;
+  const priceIndex = parseInt(item.id, 10) % priceList.length;
+  const price = priceList[priceIndex];
 
   return (
     <div className="flex items-center py-4 border rounded-lg p-4">
@@ -29,7 +29,6 @@ const CartItem = ({ item, details }) => {
         <h3 className="text-lg font-semibold">{details ? details.strMeal : 'Meal Name'}</h3>
         <div className="flex items-center">
           <span className="text-sm text-gray-500 mr-2">
-            {" "}
             $ {price.toFixed(2)}
           </span>
           <div className="ml-auto flex items-center">

@@ -5,14 +5,13 @@ import CartItem from "../components/CartItem";
 import { createOrder } from "../redux/orderSlice";
 import { clearCart } from "../redux/cartSlice";
 import { fetchItemDetailsAsync } from "../redux/itemSlice";
-import { generateRandomPrice } from "../utils/helpers";
+import priceList from "../utils/helpers";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
   const itemDetails = useSelector((state) => state.items.details);
-  console.log("cartItems", itemDetails);
 
   React.useEffect(() => {
     cartItems.forEach((item) => {
@@ -36,10 +35,10 @@ const Cart = () => {
     (total, item) => total + item.quantity,
     0
   );
+
   const totalPrice = cartItems.reduce((total, item) => {
-    const details = itemDetails[item.id];
-    const price =
-      details && details.price ? details.price : generateRandomPrice();
+    const priceIndex = parseInt(item.id, 10) % priceList.length;
+    const price = priceList[priceIndex];
     return total + item.quantity * price;
   }, 0);
 
@@ -75,9 +74,14 @@ const Cart = () => {
             <div className="">
               {cartItems.map((item) => {
                 const details = itemDetails[item.id];
+                const priceIndex = parseInt(item.id, 10) % priceList.length;
+                const price = priceList[priceIndex];
                 if (!details) {
                   return (
-                    <div key={item.id} className="bg-gray-100 p-4 rounded-lg mb-4">
+                    <div
+                      key={item.id}
+                      className="bg-gray-100 p-4 rounded-lg mb-4"
+                    >
                       <p>Loading item details...</p>
                     </div>
                   );
@@ -88,12 +92,13 @@ const Cart = () => {
                     className="flex justify-between items-center bg-gray-100 rounded-lg mb-4"
                   >
                     <span>{details.strMeal}</span>
-                    <span>
-                      $
-                      {details.price
-                        ? details.price.toFixed(2)
-                        : generateRandomPrice().toFixed(2)}
-                    </span>
+                    <div className="flex items-center">
+                      <p>
+                        {item.quantity} x {price.toFixed(2)}
+                      </p>
+                      <span className="mx-1">=</span>
+                      <p>${(item.quantity * price).toFixed(2)}</p>
+                    </div>
                   </div>
                 );
               })}

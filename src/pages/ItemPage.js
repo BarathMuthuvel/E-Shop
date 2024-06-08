@@ -6,7 +6,7 @@ import { useItems } from '../hooks/useItems';
 const ItemPage = () => {
   const { itemId } = useParams();
   const { items } = useItems();
-  const { addItemToCart } = useCart(); // Removed updateItemQuantity since it's not used
+  const { addItemToCart } = useCart(); 
 
   const item = items.find((item) => item.idMeal === itemId);
 

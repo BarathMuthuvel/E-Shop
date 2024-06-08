@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchItemDetails } from '../utils/api';
 
-// Thunk to fetch item details
 export const fetchItemDetailsAsync = createAsyncThunk(
   'items/fetchDetails',
   async (id) => {
