@@ -19,7 +19,7 @@ const CartItem = ({ item, details }) => {
   const price = priceList[priceIndex];
 
   return (
-    <div className="flex items-center py-4 border rounded-lg p-4">
+    <div className="flex items-center py-4 border-2 rounded-lg p-4">
       <img
         src={details ? details.strMealThumb : ''}
         alt={details ? details.strMeal : ''}

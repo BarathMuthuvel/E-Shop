@@ -49,7 +49,7 @@ const Cart = () => {
         <p>Your cart is empty.</p>
       ) : (
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-2/3 pr-4">
+          <div className="md:w-2/3 pr-4 space-y-2">
             {cartItems.map((item) => {
               const details = itemDetails[item.id];
               if (!details) {

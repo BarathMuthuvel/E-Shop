@@ -30,7 +30,7 @@ const ItemDetail = () => {
           <img
             src={itemDetails.strMealThumb}
             alt={itemDetails.strMeal}
-            className="w-full h-auto object-cover"
+            className="w-full h-auto object-cover rounded-md"
           />
         </div>
         <div className="md:w-1/2 md:pl-8">
