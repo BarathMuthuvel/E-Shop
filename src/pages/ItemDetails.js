@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchItemDetailsAsync } from '../redux/cartSlice';
 import priceList from '../utils/helpers';
 import AddToCartButton from '../components/AddToCartButton';
+import Breadcrumb from '../components/Breadcrum';
 
 const ItemDetail = () => {
   const { id } = useParams();
@@ -23,8 +24,15 @@ const ItemDetail = () => {
     return <div>Loading...</div>;
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', path: '/' },
+    { label: itemDetails.strCategory, path: `/category/${itemDetails.strCategory}` },
+    { label: itemDetails.strMeal, path: null }
+  ];
+
   return (
     <div className="container mx-auto py-8">
+      <Breadcrumb items={breadcrumbItems} />
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2">
           <img
